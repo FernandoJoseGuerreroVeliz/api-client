@@ -1,0 +1,38 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode
+.idea
+
+# logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# env files
+.env
+.env.*
+
+# docker
+docker-data
+*.pid
+
+# node
+node_modules
+
+# build artifacts
+dist
+build
+tmp
+
+# prisma
+prisma/migrations
+
+# coverage
+coverage
+
+# system
+*.swp
