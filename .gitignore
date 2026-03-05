@@ -1,0 +1,20 @@
+# node
+node_modules
+dist
+npm-debug.log
+
+# env
+.env
+
+# prisma
+prisma/migrations
+
+# docker
+docker-data
+
+# vscode
+.vscode
+
+# logs
+logs
+*.log
