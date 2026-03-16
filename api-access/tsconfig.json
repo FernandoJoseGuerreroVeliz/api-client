@@ -15,10 +15,6 @@
     "outDir": "./dist",
     "baseUrl": "./",
 
-    "paths": {
-      "@pata-dev/library-utils": ["../library-utils"]
-    },
-
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
