@@ -1,0 +1,27 @@
+services:
+  api-access:
+    build:
+      context: ../api-access
+      dockerfile: Dockerfile
+      target: builder
+    container_name: api-access-dev
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3016}:3016"
+    environment:
+      DATABASE_URL_ACCESS: ${DATABASE_URL_ACCESS}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1d}
+      BASIC_AUTH_USER: ${BASIC_AUTH_USER}
+      BASIC_AUTH_PASS: ${BASIC_AUTH_PASS}
+      CORS_ORIGIN: ${CORS_ORIGIN:-*}
+      PORT: 3016
+    volumes:
+      - ../api-access/src:/app/src:ro
+    command: npm run start:dev
+    networks:
+      - pata-network
+
+networks:
+  pata-network:
+    driver: bridge
