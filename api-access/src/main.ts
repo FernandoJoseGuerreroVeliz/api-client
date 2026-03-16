@@ -2,8 +2,8 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common'
 import { NestFactory, Reflector } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { GlobalExceptionFilter } = require('@pata-dev/library-utils')
+// GlobalExceptionFilter comentado hasta resolver el export de @pata-dev/library-utils
+// import { GlobalExceptionFilter } from '@pata-dev/library-utils'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
@@ -24,7 +24,7 @@ async function bootstrap() {
         }),
     )
 
-    app.useGlobalFilters(new GlobalExceptionFilter())
+    // app.useGlobalFilters(new GlobalExceptionFilter())
 
     app.enableCors({
         origin: process.env.CORS_ORIGIN || '*',
