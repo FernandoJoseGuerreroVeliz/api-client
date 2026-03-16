@@ -8,11 +8,13 @@ import { PrismaModule } from './modules/prisma.module'
 import { JwtMiddleware } from '@pata-dev/library-utils'
 import { AppController } from './app.controller'
 import { BasicAuthMiddleware } from './middlewares/basic-auth.middleware'
+import { ROUTES } from './routes/routes'
 import { UsersModule } from './modules/users.module'
 import { UserSessionsModule } from './modules/user-sessions.module'
 import { RolesModule } from './modules/roles.module'
 import { UserStatusModule } from './modules/user-status.module'
 import { CountriesModule } from './modules/countries.module'
+import { AuthModule } from './modules/auth.module'
 
 @Module({
     controllers: [AppController],
@@ -23,6 +25,7 @@ import { CountriesModule } from './modules/countries.module'
         RolesModule,
         UserStatusModule,
         CountriesModule,
+        AuthModule,
     ],
 })
 export class AppModule implements NestModule {
@@ -30,17 +33,19 @@ export class AppModule implements NestModule {
         consumer
             .apply(JwtMiddleware)
             .exclude(
-                { path: 'health', method: RequestMethod.GET },
+                { path: ROUTES.HEALTH, method: RequestMethod.GET },
+                { path: ROUTES.AUTH.LOGIN, method: RequestMethod.POST },
+                { path: ROUTES.AUTH.REFRESH, method: RequestMethod.POST },
             )
             .forRoutes({ path: '(.*)', method: RequestMethod.ALL })
 
         consumer.apply(BasicAuthMiddleware).forRoutes(
             {
-                path: 'users/filter-employers-by-ids-score',
+                path: ROUTES.USERS.FILTER_EMPLOYERS_BY_IDS_SCORE,
                 method: RequestMethod.POST,
             },
             {
-                path: 'users/by-ids',
+                path: ROUTES.USERS.BY_IDS,
                 method: RequestMethod.POST,
             },
         )
