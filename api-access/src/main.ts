@@ -2,7 +2,8 @@ import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common'
 import { NestFactory, Reflector } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { AppModule } from './app.module'
-import { GlobalExceptionFilter } from '@pata-dev/library-utils'
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { GlobalExceptionFilter } = require('@pata-dev/library-utils')
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
