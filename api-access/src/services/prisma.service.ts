@@ -9,10 +9,16 @@ export class PrismaService
 {
     constructor() {
         const rawUrl = process.env.DATABASE_URL_ACCESS ?? ''
-        const connectionString = rawUrl.split('?')[0]
+        const url = new URL(rawUrl)
 
         const adapter = new PrismaPg(
-            { connectionString },
+            {
+                host: url.hostname,
+                port: parseInt(url.port) || 5432,
+                database: url.pathname.replace('/', ''),
+                user: decodeURIComponent(url.username),
+                password: decodeURIComponent(url.password),
+            },
             { schema: 'access' },
         )
 
