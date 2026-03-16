@@ -6,7 +6,16 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
+
+# Elimina el path alias local que no existe en Docker (la lib está instalada vía npm)
+RUN node -e "\
+  const fs = require('fs');\
+  const t = JSON.parse(fs.readFileSync('tsconfig.json', 'utf8'));\
+  delete t.compilerOptions.paths;\
+  fs.writeFileSync('tsconfig.json', JSON.stringify(t, null, 2));\
+"
+
+RUN npm run build && ls -la dist/
 
 
 FROM node:22-alpine AS production
