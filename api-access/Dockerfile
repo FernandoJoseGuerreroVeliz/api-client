@@ -17,9 +17,9 @@ RUN node -e "\
   fs.writeFileSync('tsconfig.json', JSON.stringify(t, null, 2));\
 "
 
-RUN npm run build
+RUN npx tsc -p tsconfig.json
 
-RUN test -f dist/main.js || (echo "ERROR: dist/main.js not generated" && exit 1)
+RUN ls -la dist/ && test -f dist/main.js || (echo "ERROR: dist/main.js not generated" && exit 1)
 
 
 FROM node:22-alpine AS production
