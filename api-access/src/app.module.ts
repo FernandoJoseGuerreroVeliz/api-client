@@ -14,6 +14,7 @@ import { UserSessionsModule } from './modules/user-sessions.module'
 import { RolesModule } from './modules/roles.module'
 import { UserStatusModule } from './modules/user-status.module'
 import { CountriesModule } from './modules/countries.module'
+import { AuthModule } from './modules/auth.module'
 
 @Module({
     controllers: [AppController],
@@ -24,6 +25,7 @@ import { CountriesModule } from './modules/countries.module'
         RolesModule,
         UserStatusModule,
         CountriesModule,
+        AuthModule,
     ],
 })
 export class AppModule implements NestModule {
@@ -32,6 +34,8 @@ export class AppModule implements NestModule {
             .apply(JwtMiddleware)
             .exclude(
                 { path: ROUTES.HEALTH, method: RequestMethod.GET },
+                { path: ROUTES.AUTH.LOGIN, method: RequestMethod.POST },
+                { path: ROUTES.AUTH.REFRESH, method: RequestMethod.POST },
             )
             .forRoutes({ path: '(.*)', method: RequestMethod.ALL })
 

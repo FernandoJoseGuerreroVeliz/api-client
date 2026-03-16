@@ -1,6 +1,13 @@
 export const ROUTES = {
     HEALTH: 'health',
 
+    AUTH: {
+        BASE: 'auth',
+        LOGIN: 'auth/login',
+        LOGOUT: 'auth/logout',
+        REFRESH: 'auth/refresh',
+    },
+
     USERS: {
         BASE: 'users',
         BY_ID: 'users/:id',
