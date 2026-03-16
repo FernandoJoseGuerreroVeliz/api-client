@@ -8,6 +8,7 @@ import { PrismaModule } from './modules/prisma.module'
 import { JwtMiddleware } from '@pata-dev/library-utils'
 import { AppController } from './app.controller'
 import { BasicAuthMiddleware } from './middlewares/basic-auth.middleware'
+import { ROUTES } from './routes/routes'
 import { UsersModule } from './modules/users.module'
 import { UserSessionsModule } from './modules/user-sessions.module'
 import { RolesModule } from './modules/roles.module'
@@ -30,17 +31,17 @@ export class AppModule implements NestModule {
         consumer
             .apply(JwtMiddleware)
             .exclude(
-                { path: 'health', method: RequestMethod.GET },
+                { path: ROUTES.HEALTH, method: RequestMethod.GET },
             )
             .forRoutes({ path: '(.*)', method: RequestMethod.ALL })
 
         consumer.apply(BasicAuthMiddleware).forRoutes(
             {
-                path: 'users/filter-employers-by-ids-score',
+                path: ROUTES.USERS.FILTER_EMPLOYERS_BY_IDS_SCORE,
                 method: RequestMethod.POST,
             },
             {
-                path: 'users/by-ids',
+                path: ROUTES.USERS.BY_IDS,
                 method: RequestMethod.POST,
             },
         )
