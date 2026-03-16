@@ -19,7 +19,7 @@ RUN node -e "\
 
 RUN npx tsc -p tsconfig.json
 
-RUN ls -la dist/ && test -f dist/main.js || (echo "ERROR: dist/main.js not generated" && exit 1)
+RUN test -f dist/src/main.js || (echo "ERROR: dist/src/main.js not generated" && ls -la dist/ && exit 1)
 
 
 FROM node:22-alpine AS production
@@ -33,4 +33,4 @@ COPY --from=builder /app/dist ./dist
 
 EXPOSE 3016
 
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]
